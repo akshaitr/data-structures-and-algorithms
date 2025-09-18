@@ -1,6 +1,6 @@
 # Topics
 
-1. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms/blob/main/README.md#two-sum)
+1. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-sum)
 
 # Two Sum
 
