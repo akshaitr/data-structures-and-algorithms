@@ -1,6 +1,16 @@
 # Topics
 
-1. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-sum)
+1. [Two Pointers Pattern](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-pointers-pattern)
+2. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-sum)
+
+# Two Pointers Pattern
+
+The two pointers pattern involves using two indices (pointers) to traverse a data structure in order to achieve a certain goal efficiently, often avoiding nested loops.
+
+- One pointer usually starts at the beginning.
+- Another pointer may start at the end or sometimes at the same start but moves differently based on the problem.
+
+It’s mainly used for reducing time complexity. Without two pointers, some problems would require nested loops, giving O(n²) complexity. With two pointers, you can often reduce it to O(n).
 
 # Two Sum
 
