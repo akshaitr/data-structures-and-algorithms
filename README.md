@@ -34,10 +34,6 @@ Output: [0, 1]   // Because nums[0] + nums[1] = 2 + 7 = 9
 
 Idea: try every pair (i, j).
 ```javascript
-/**
- * Brute-force two-sum
- * Returns [i, j] or null if no pair found.
- */
 function twoSumBrute(nums, target) {
   const n = nums.length;
   for (let i = 0; i < n - 1; i++) {
@@ -61,10 +57,6 @@ Idea: iterate once, keep a map from number → its index. For each number x, che
 
 This is the most common and fastest method in practice.
 ```javascript
-/**
- * One-pass hash map (optimal average)
- * Returns [i, j] or null.
- */
 function twoSumHash(nums, target) {
   const map = new Map(); // num -> index
   for (let i = 0; i < nums.length; i++) {
@@ -150,17 +142,17 @@ Explanation: Buy on day 2 (price=1) and sell on day 5 (price=6), profit = 6-1 = 
 
 ```javascript
 function maxProfit(prices) {
-    let minPrice = prices[0];
-    let maxProfit = 0;
-    for(let i = 1; i < prices.length; i++) {
-        if(prices[i] < minPrice) {
-            minPrice = prices[i];
-        }
-        let profit = prices[i] - minPrice; // profit if sold today
-        if(profit > maxProfit) {
-            maxProfit = profit;
-        }
+  let minPrice = prices[0];
+  let maxProfit = 0;
+  for (let i = 1; i < prices.length; i++) {
+    if (prices[i] < minPrice) {
+      minPrice = prices[i];
     }
-    return maxProfit;
-};
+    let profit = prices[i] - minPrice; // profit if sold today
+    if (profit > maxProfit) {
+      maxProfit = profit;
+    }
+  }
+  return maxProfit;
+}
 ```
