@@ -2,6 +2,8 @@
 
 1. [Two Pointers Pattern](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-pointers-pattern)
 2. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-sum)
+3. [Kadane's Algorithm](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#kadanes-algorithm)
+4. [Best Time to Buy and Sell Stock](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#best-time-to-buy-and-sell-stock)
 
 # Two Pointers Pattern
 
@@ -99,3 +101,68 @@ Why one-pass works: When you visit nums[i], you check if you've already seen a n
 > - Nested loops use less memory  
 > - Hash map sacrifices memory for speed
 
+# Kadane's Algorithm
+
+Kadane’s Algorithm finds the largest sum of a contiguous part of a list by keeping a running total as you scan the list. Whenever this running sum becomes negative, it is reset to zero, and at each step, the algorithm tracks the maximum sum seen so far.
+
+📢 NOTES:
+
+> It’s basically: "accumulate as long as it helps, reset if it hurts, remember the best."
+
+We are given a list of numbers (some may be negative, some positive).<br/>
+We need to find the biggest sum we can get from a contiguous (side-by-side) part of the list.
+
+```javascript
+function maxSubarraySum(nums) {
+  let currentSum = 0;
+  let maxSum = -Infinity;
+
+  for (let num of nums) {
+    currentSum += num;
+    if (currentSum > maxSum) {
+      maxSum = currentSum;
+    }
+    if (currentSum < 0) {
+      currentSum = 0;
+    }
+  }
+
+  return maxSum;
+}
+```
+
+Example:
+```javascript
+const nums = [4, -2, 3, -1];
+console.log(maxSubarraySum(nums)); // Output: 5
+```
+
+# Best Time to Buy and Sell Stock
+
+You are given an array `prices` where `prices[i]` is the price of a stock on day `i`.<br/>
+You want to maximize your profit by choosing one day to buy and one day in the future to sell. You can only make one transaction.<br/>
+Return the maximum profit you can achieve. If no profit is possible, return `0`.
+
+Example:
+```javascript
+Input: prices = [7, 1, 5, 3, 6, 4]
+Output: 5
+Explanation: Buy on day 2 (price=1) and sell on day 5 (price=6), profit = 6-1 = 5
+```
+
+```javascript
+function maxProfit(prices) {
+    let minPrice = prices[0];
+    let maxProfit = 0;
+    for(let i = 1; i < prices.length; i++) {
+        if(prices[i] < minPrice) {
+            minPrice = prices[i];
+        }
+        let profit = prices[i] - minPrice; // profit if sold today
+        if(profit > maxProfit) {
+            maxProfit = profit;
+        }
+    }
+    return maxProfit;
+};
+```
