@@ -107,7 +107,7 @@ We need to find the biggest sum we can get from a contiguous (side-by-side) part
 ```javascript
 function maxSubarraySum(nums) {
   let currentSum = 0;
-  let maxSum = nums[0;
+  let maxSum = nums[0];
   for (let num of nums) {
     currentSum += num;
     if (currentSum > maxSum) {
