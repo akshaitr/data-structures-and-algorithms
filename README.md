@@ -4,6 +4,8 @@
 2. [Two Sum](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#two-sum)
 3. [Kadane's Algorithm](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#kadanes-algorithm)
 4. [Best Time to Buy and Sell Stock](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#best-time-to-buy-and-sell-stock)
+5. [Hash Map](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#hash-map)
+6. [Valid Anagram](https://github.com/akshaitr/data-structures-and-algorithms?tab=readme-ov-file#valid-anagram)
 
 # Two Pointers Pattern
 
@@ -156,3 +158,107 @@ function maxProfit(prices) {
   return maxProfit;
 }
 ```
+
+# Hash Map
+
+```javascript
+// Create a new Map
+const map = new Map();
+
+// Add key-value pairs
+map.set('name', 'Akshai');
+map.set('age', 29);
+map.set(1, 'one'); // keys can be numbers too
+
+// Access a value
+console.log(map.get('name')); // Akshai
+
+// Check if a key exists
+console.log(map.has('age')); // true
+
+// Remove a key
+map.delete('age');
+
+// Get the size
+console.log(map.size); // 2
+
+// Iterate over map
+for (let [key, value] of map) {
+  console.log(key, value);
+}
+
+map.keys(); // Returns a new Iterator object that contains the keys for each element in the Map object in insertion order.
+
+map.values(); // Returns a new Iterator object that contains the values for each element in the Map object in insertion order.
+
+// Clear all entries
+map.clear();
+```
+
+- Keys can be any type (objects, functions, numbers, etc.).
+- Maintains insertion order.
+- Has built-in size property.
+
+# Valid Anagram
+
+Given two strings s and t, return true if t is an anagram of s, and false otherwise.
+
+Example 1:
+```javascript
+Input: s = "anagram", t = "nagaram"
+Output: true
+```
+
+Example 2:
+```javascript
+Input: s = "rat", t = "car"
+Output: false
+```
+
+```javascript
+function isAnagram(s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+  const freq = new Map();
+  for (let i = 0; i < s.length; i++) {
+    freq.set(s[i], (freq.get(s[i]) || 0) + 1);
+    freq.set(t[i], (freq.get(t[i]) || 0) - 1);
+  }
+  for (const count of freq.values()) {
+    if (count !== 0) {
+      return false;
+    }
+  }
+  return true;
+}
+```
+
+📢 NOTES:
+
+> What if the inputs contain Unicode characters? How would you adapt your solution to such a case?
+>
+> The above Map solution works for Unicode too because Map keys can be any string, not just ASCII.
+> - Works for any Unicode characters.
+> - Still O(n) time, O(n) space.
+> - No assumptions about character range.
+
+### Even faster for lowercase a–z
+
+If input is guaranteed to be lowercase English letters, an integer array of length 26 is fastest (less overhead than Map):
+
+```javascript
+function isAnagram(s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+  const counts = new Array(26).fill(0);
+  const base = "a".charCodeAt(0);
+  for (let i = 0; i < s.length; i++) {
+    counts[s.charCodeAt(i) - base]++;
+    counts[t.charCodeAt(i) - base]--;
+  }
+  return counts.every((c) => c === 0);
+}
+```
+
