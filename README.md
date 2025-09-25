@@ -262,3 +262,72 @@ function isAnagram(s, t) {
 }
 ```
 
+# Sliding Window Pattern
+
+The sliding window is a technique used for arrays or strings to reduce the number of iterations, especially when looking for subarrays or substrings with certain properties.
+
+Instead of checking every possible subarray (which is O(n²)), we maintain a "window" of elements and slide it forward as we go.
+
+Think of it like a window on a string or array that moves along while keeping track of some condition (like sum, max, min, frequency, etc.).
+
+### Types of Sliding Windows
+
+##### 1. Fixed-size window
+
+The size of the window is known and constant.
+
+Example: Find the maximum sum of any subarray of size k
+```javascript
+function maxSubarraySum(arr, k) {
+  let maxSum = 0;
+  let windowSum = 0;
+  // Step 1: sum the first k elements
+  for(let i = 0; i < k; i++){
+    windowSum += arr[i];
+  }
+  maxSum = windowSum;
+  // Step 2: slide the window
+  for(let i = k; i < arr.length; i++) {
+    windowSum = windowSum - arr[i-k] + arr[i];
+    maxSum = Math.max(maxSum, windowSum);
+  }
+  return maxSum;
+}
+```
+
+📢 NOTES:
+
+> Why it works? Instead of recomputing the sum of every subarray, we just subtract the element going out and add the element coming in.
+>
+> O(n) instead of O(n²)
+
+##### 2. Dynamic-size window
+
+The size can grow or shrink depending on conditions.
+
+Example: Find the smallest subarray with sum ≥ S.
+```javascript
+function minSubarrayLen(arr, S) {
+  let minLen = 0;
+  let windowSum = 0;
+  let start = 0;
+  for(let end = 0; end < arr.length; end++) {
+    windowSum += arr[end];
+    while(windowSum >= S) {
+      minLen = Math.min(minLen, end - start + 1);
+      windowSum -= arr[start];
+      start++;
+    }  
+  }
+  return minLen;
+}
+```
+
+### Key Steps to Apply Sliding Window
+
+1. Identify the problem: subarray/substring, contiguous elements.
+2. Decide fixed or dynamic window.
+3. Initialize window variables (sum, max, frequency map, etc.).
+4. Expand the window (move right pointer).
+5. Shrink the window if needed (move left pointer).
+6. Update result whenever condition is satisfied.
