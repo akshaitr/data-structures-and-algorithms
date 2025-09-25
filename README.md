@@ -38,6 +38,7 @@ Idea: try every pair (i, j).
 ```javascript
 function twoSumBrute(nums, target) {
   const n = nums.length;
+
   for (let i = 0; i < n - 1; i++) {
     for (let j = i + 1; j < n; j++) {
       if (nums[i] + nums[j] === target) {
@@ -45,6 +46,7 @@ function twoSumBrute(nums, target) {
       }
     }
   }
+
   return null;
 }
 ```
@@ -61,15 +63,18 @@ This is the most common and fastest method in practice.
 ```javascript
 function twoSumHash(nums, target) {
   const map = new Map(); // num -> index
+
   for (let i = 0; i < nums.length; i++) {
     const x = nums[i];
     const need = target - x;
+
     if (map.has(need)) {
       return [map.get(need), i]; // index of need, current index
     }
     // store current number and index for future complements
     map.set(x, i);
   }
+
   return null;
 }
 ```
@@ -110,15 +115,19 @@ We need to find the biggest sum we can get from a contiguous (side-by-side) part
 function maxSubarraySum(nums) {
   let currentSum = 0;
   let maxSum = nums[0];
+
   for (let num of nums) {
     currentSum += num;
+
     if (currentSum > maxSum) {
       maxSum = currentSum;
     }
+
     if (currentSum < 0) {
       currentSum = 0;
     }
   }
+
   return maxSum;
 }
 ```
@@ -146,15 +155,18 @@ Explanation: Buy on day 2 (price=1) and sell on day 5 (price=6), profit = 6-1 = 
 function maxProfit(prices) {
   let minPrice = prices[0];
   let maxProfit = 0;
+
   for (let i = 1; i < prices.length; i++) {
     if (prices[i] < minPrice) {
       minPrice = prices[i];
     }
+
     let profit = prices[i] - minPrice; // profit if sold today
     if (profit > maxProfit) {
       maxProfit = profit;
     }
   }
+
   return maxProfit;
 }
 ```
@@ -220,16 +232,20 @@ function isAnagram(s, t) {
   if (s.length !== t.length) {
     return false;
   }
+
   const freq = new Map();
+
   for (let i = 0; i < s.length; i++) {
     freq.set(s[i], (freq.get(s[i]) || 0) + 1);
     freq.set(t[i], (freq.get(t[i]) || 0) - 1);
   }
+
   for (const count of freq.values()) {
     if (count !== 0) {
       return false;
     }
   }
+
   return true;
 }
 ```
@@ -252,12 +268,15 @@ function isAnagram(s, t) {
   if (s.length !== t.length) {
     return false;
   }
+
   const counts = new Array(26).fill(0);
   const base = "a".charCodeAt(0);
+
   for (let i = 0; i < s.length; i++) {
     counts[s.charCodeAt(i) - base]++;
     counts[t.charCodeAt(i) - base]--;
   }
+
   return counts.every((c) => c === 0);
 }
 ```
@@ -281,16 +300,19 @@ Example: Find the maximum sum of any subarray of size k
 function maxSubarraySum(arr, k) {
   let maxSum = 0;
   let windowSum = 0;
+
   // Step 1: sum the first k elements
   for(let i = 0; i < k; i++){
     windowSum += arr[i];
   }
   maxSum = windowSum;
+
   // Step 2: slide the window
   for(let i = k; i < arr.length; i++) {
     windowSum = windowSum - arr[i-k] + arr[i];
     maxSum = Math.max(maxSum, windowSum);
   }
+
   return maxSum;
 }
 ```
@@ -311,14 +333,17 @@ function minSubarrayLen(arr, S) {
   let minLen = 0;
   let windowSum = 0;
   let start = 0;
+
   for(let end = 0; end < arr.length; end++) {
     windowSum += arr[end];
+
     while(windowSum >= S) {
       minLen = Math.min(minLen, end - start + 1);
       windowSum -= arr[start];
       start++;
     }  
   }
+
   return minLen;
 }
 ```
